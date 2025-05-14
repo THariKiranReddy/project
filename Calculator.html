@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #calculator{
+            width:500px;
+            height: 550px;
+            box-shadow: 0 26px 58px 0 rgba(0, 0, 0, .22), 0 5px 14px 0 rgba(0, 0, 0, .18);
+            margin:auto;
+            padding: 20px;
+            background-color: white;
+            
+        }
+        h1{
+            text-align: center;
+            color:blue;
+            font-size: 40px;
+            font-weight: 500;
+        }
+        #display{
+            box-shadow: 0 7px 15px 0 rgba(0, 0, 0, .13), 0 1px 4px 0 rgba(0, 0, 0, .11);
+            padding : 10px;
+            height : 50px;
+            width : 450px;
+            margin:auto;
+            
+        }
+        #keyboard{
+            margin-top: 10px;
+           display:grid;
+           grid-template-columns: repeat(4,1fr);
+           grid-template-rows: repeat(4,90px);
+           margin-bottom: 10px;
+        }
+        #keyboard>div{
+            display:flex;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+            justify-content:center;
+            align-items:center;
+        }
+        #keyboard>div:hover{
+            background-color: coral;
+            color:aliceblue;
+        }
+        .red{
+            background-color:green;
+            color: lightblue;
+
+        }
+        .black{
+            background-color:black;
+            color: lightblue;
+        }
+        .red:hover{
+            background-color: red;
+            color: lightblue;
+        }
+        .black:hover{
+            background-color: yellow;
+            color: lightblue;
+        }
+        </style>
+</head>
+<body>
+    <section id="calculator">
+        <h1 id="cal">Calculator</h1>
+        <div id="display"></div>
+        <div id="keyboard">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div class="red">+</div>
+            <div>4</div>
+            <div>5</div>
+            <div>6</div>
+            <div class="red">-</div>
+            <div>7</div>
+            <div>8</div>
+            <div>9</div>
+            <div class="red">*</div>
+            <div>0</div>
+            <div class="black">=</div>
+            <div class="black">AC</div>
+            <div class="red">%</div>
+        </div>
+    </section>
+</body>
+</html>
+<script>
+    let keys = document.querySelectorAll("#keyboard>div");
+    let bag="";
+    for(i=0;i<keys.length;i++){
+        keys[i].addEventListener("click",myCalculator);
+    }
+    function myCalculator(){
+        let targetNumber=event.target.innerText;
+        if(targetNumber == "AC"){
+            bag="";
+            document.querySelector("#display").innerText=bag;
+        }
+        else if(targetNumber == "="){
+            if (/^[+\-*/%]+$/.test(bag)) {
+                document.querySelector("#display").innerText="Error:Invalid Input";
+            }
+            else{
+                try{
+                    let result=eval(bag);
+                    document.querySelector("#display").innerText=result;
+                }
+                catch(error){
+                    document.querySelector("#display").innerText="Error:Invalid Input";
+                }
+            }
+        }
+        else {
+            bag=bag+targetNumber;
+            document.querySelector("#display").innerText=bag;
+
+        }
+    }
+    
+</script>
